@@ -1,0 +1,29 @@
+---
+- name: install pre-requisites
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: true
+  with_items: "{{ netdata_script_dependencies }}"
+
+- name: Install GPG Key from Netdata
+  apt_key:
+    url: https://packagecloud.io/netdata/netdata/gpgkey
+    state: present
+
+- name: Add repository
+  apt_repository:
+    repo: deb https://packagecloud.io/netdata/netdata/{{ ansible_distribution | lower  }}/ {{ ansible_distribution_release }} main
+    state: present
+    filename: netdata
+
+- name: Add source repository
+  apt_repository:
+    repo: deb-src https://packagecloud.io/netdata/netdata/{{ ansible_distribution | lower  }}/ {{ ansible_distribution_release }} main
+    state: present
+    filename: netdata
+
+- name: Install netdata
+  apt:
+    name: netdata
+    update_cache: true

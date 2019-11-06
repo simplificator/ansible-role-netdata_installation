@@ -1,0 +1,6 @@
+---
+netdata_script_dependencies:
+  - debian-archive-keyring
+  - curl
+  - gnupg
+  - apt-transport-https

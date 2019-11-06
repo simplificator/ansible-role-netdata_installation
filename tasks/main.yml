@@ -1,0 +1,28 @@
+---
+- name: Gather variables for each operating system
+  include_vars: "{{ item }}"
+  with_items: "{{ ansible_os_family | lower }}.yml"
+  tags:
+    - always
+
+- include: install_package_debian.yml
+  when: ansible_os_family == "Debian"
+
+- include: install_package_centos.yml
+  when: ansible_os_family == "RedHat"
+
+- name: Copy SSL certificate to netdata SSL folder
+  template:
+    src: "server_ssl_cert.pem.j2"
+    dest: "/etc/netdata/ssl/cert.pem"
+    owner: "netdata"
+    group: "netdata"
+    mode: 0600
+
+- name: Copy SSL key to netdata SSL folder
+  template:
+    src: "server_ssl_key.pem.j2"
+    dest: "/etc/netdata/ssl/key.pem"
+    owner: "netdata"
+    group: "netdata"
+    mode: 0600
