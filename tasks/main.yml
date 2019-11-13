@@ -18,6 +18,7 @@
     owner: "netdata"
     group: "netdata"
     mode: 0600
+  become: yes
 
 - name: Copy SSL key to netdata SSL folder
   template:
@@ -26,3 +27,4 @@
     owner: "netdata"
     group: "netdata"
     mode: 0600
+  become: yes
