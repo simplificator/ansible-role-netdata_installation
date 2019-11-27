@@ -5,8 +5,11 @@
   tags:
     - always
 
+- include: install_package_debian_8.yml
+  when: ansible_os_family == "Debian" and ansible_distribution_version|int == 8
+
 - include: install_package_debian.yml
-  when: ansible_os_family == "Debian"
+  when: ansible_os_family == "Debian" and ansible_distribution_version|int >= 9
 
 - include: install_package_centos.yml
   when: ansible_os_family == "RedHat"
