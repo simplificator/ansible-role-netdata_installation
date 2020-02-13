@@ -1,0 +1,7 @@
+FROM simplificator/ansible:ubuntu1804
+
+ADD . /etc/ansible/roles/netdata-installation
+
+ADD test/ .
+
+RUN ansible-playbook --connection=local provision-test.yml --extra-vars "vault_netdata_server_cert='1234' vault_netdata_server_key='56789'"

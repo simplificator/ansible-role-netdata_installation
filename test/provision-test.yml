@@ -1,0 +1,6 @@
+---
+  - hosts: "localhost"
+  
+    roles:
+      - role: netdata-installation
+        tags: netdata-installation
