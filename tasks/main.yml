@@ -31,3 +31,14 @@
     group: "netdata"
     mode: 0600
   become: yes
+
+- name: "Check installed packages (for Docker)"
+  package_facts:
+    manager: "auto"
+
+- name: Add Netdata user to Docker group
+  user:
+    name: "netdata"
+    groups: "docker"
+    append: "yes"
+  when: ansible_facts.packages | select('search', 'docker') | list | count > 0
