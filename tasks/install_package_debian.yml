@@ -29,6 +29,6 @@
 
 - name: Install netdata
   apt:
-    name: netdata=1.19.0
+    name: netdata=1.20.0
     update_cache: true
   become: yes
