@@ -27,6 +27,26 @@
     filename: netdata
   become: yes
 
+- name: Don't check for valid until (Debian Jessie only)
+  shell: echo 'Acquire::Check-Valid-Until no;' > /etc/apt/apt.conf.d/99no-check-valid-until
+  become: yes
+
+- name: Add Jessie backports repository for libuv1-dev (Debian Jessie only)
+  apt_repository:
+    repo: deb http://archive.debian.org/debian/ jessie-backports main
+    state: present
+    filename: jessie-backports
+  become: yes
+  when: ansible_distribution_version|int == 8
+
+- name: Add Jessie backports source repository for libuv1-dev (Debian Jessie only)
+  apt_repository:
+    repo: deb-src http://archive.debian.org/debian/ jessie-backports main
+    state: present
+    filename: jessie-backports
+  become: yes
+  when: ansible_distribution_version|int == 8
+
 - name: Install netdata
   apt:
     name: netdata=1.20.0
