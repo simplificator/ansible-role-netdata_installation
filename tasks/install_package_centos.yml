@@ -38,3 +38,5 @@
     state: present
     update_cache: true
   become: yes
+  notify:
+    - Restart Netdata
