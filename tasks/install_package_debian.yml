@@ -1,10 +1,9 @@
 ---
 - name: install pre-requisites
   apt:
-    name: "{{ item }}"
+    pkg: "{{ netdata_script_dependencies }}"
     state: present
     update_cache: true
-  with_items: "{{ netdata_script_dependencies }}"
   become: yes
 
 - name: Install GPG Key from Netdata
