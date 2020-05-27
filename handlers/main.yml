@@ -1,0 +1,7 @@
+---
+# file roles/tomcat/handlers/main.yml
+- name: Restart Netdata
+  service:
+    name: netdata
+    state: restarted
+  when: is_docker is undefined

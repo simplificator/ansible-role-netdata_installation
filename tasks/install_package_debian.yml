@@ -31,3 +31,5 @@
     name: netdata=1.22.1
     update_cache: true
   become: yes
+  notify:
+    - Restart Netdata

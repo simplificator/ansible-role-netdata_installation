@@ -21,6 +21,9 @@
     owner: "netdata"
     group: "netdata"
     mode: 0600
+  when: netdata_server_certificate is defined
+  notify:
+    - Restart Netdata
   become: yes
 
 - name: Copy SSL key to netdata SSL folder
@@ -30,6 +33,9 @@
     owner: "netdata"
     group: "netdata"
     mode: 0600
+  when: netdata_server_certificate_key is defined
+  notify:
+    - Restart Netdata
   become: yes
 
 - name: "Check installed packages (for Docker)"
@@ -42,3 +48,5 @@
     groups: "docker"
     append: "yes"
   when: ansible_facts.packages | select('search', 'docker') | list | count > 0
+  notify:
+    - Restart Netdata
