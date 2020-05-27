@@ -20,10 +20,9 @@
 
 - name: install pre-requisites
   yum:
-    name: "{{ item }}"
+    name: "{{ netdata_script_dependencies }}"
     state: present
     update_cache: true
-  with_items: "{{ netdata_script_dependencies }}"
   become: yes
 
 - name: Copy netdata repository file
