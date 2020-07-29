@@ -33,3 +33,8 @@
   become: yes
   notify:
     - Restart Netdata
+
+- name: Hold Netdata on this version
+  dpkg_selections:
+    name: netdata
+    selection: hold
