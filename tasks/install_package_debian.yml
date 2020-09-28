@@ -28,7 +28,7 @@
 
 - name: Install netdata
   apt:
-    name: netdata=1.25.0
+    name: "netdata={{ netdata_version }}"
     update_cache: true
   become: yes
   notify:
