@@ -34,7 +34,7 @@
 - name: Install netdata
   yum:
     enablerepo: "netdata_netdata"
-    name: netdata-1.23.2-1.el7.x86_64
+    name: netdata-1.25.0-1.el7.x86_64
     state: present
     update_cache: true
   become: yes
