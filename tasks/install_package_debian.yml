@@ -26,6 +26,11 @@
     filename: netdata
   become: yes
 
+- name: Unhold Netdata on this version
+  dpkg_selections:
+    name: netdata
+    selection: install
+
 - name: Install netdata
   apt:
     name: "netdata={{ netdata_version }}"
