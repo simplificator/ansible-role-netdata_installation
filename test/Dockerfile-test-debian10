@@ -1,4 +1,4 @@
-FROM simplificator/ansible:debian10
+FROM simplificator/ansible:debian10-2-10
 
 ADD . /etc/ansible/roles/netdata-installation
 

@@ -1,4 +1,4 @@
-FROM simplificator/ansible:ubuntu1804
+FROM simplificator/ansible:ubuntu1804-2-10
 
 ADD . /etc/ansible/roles/netdata-installation
 
