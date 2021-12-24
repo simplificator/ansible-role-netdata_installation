@@ -2,7 +2,7 @@
 - name: Gather netdata version for each operating system version
   include_vars: "{{ item }}"
   with_first_found:
-    - "{{ ansible_os_family | lower }}{{ ansible_distribution_version|int }}.yml"
+    - "{{ ansible_distribution | lower }}_{{ ansible_distribution_version|int }}.yml"
     - main.yml
 
 - name: Install Python apt bindings
