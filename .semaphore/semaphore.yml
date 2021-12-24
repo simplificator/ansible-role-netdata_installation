@@ -9,11 +9,6 @@ blocks:
   - name: "Test"
     task:
       jobs:
-      - name: Test role against Debian 8
-        commands:
-          - checkout
-          - docker build --file test/Dockerfile-test-debian8 .
-
       - name: Test role against Debian 9
         commands:
           - checkout

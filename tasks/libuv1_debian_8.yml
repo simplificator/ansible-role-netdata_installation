@@ -1,3 +1,0 @@
-- name: Download libuv1 from the Debian archives
-  apt:
-    deb: "http://archive.debian.org/debian/pool/main/libu/libuv1/libuv1_1.9.0-1~bpo8+1_amd64.deb"

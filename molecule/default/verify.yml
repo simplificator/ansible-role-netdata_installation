@@ -1,0 +1,27 @@
+---
+- name: Verify
+  hosts: all
+  tasks:
+    - name: Check content of server certificate
+      lineinfile:
+        dest: /etc/netdata/ssl/cert.pem
+        line: certificate
+      check_mode: true
+      register: presence
+      failed_when: presence.changed
+
+    - name: Check content of server certificate key
+      lineinfile:
+        dest: /etc/netdata/ssl/key.pem
+        line: key
+      check_mode: true
+      register: presence
+      failed_when: presence.changed
+
+    - name: Check Netdata service is running
+      service:
+        name: netdata
+        state: running
+      check_mode: true
+      register: presence
+      failed_when: presence.changed
