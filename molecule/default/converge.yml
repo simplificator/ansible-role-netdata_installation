@@ -5,3 +5,7 @@
 
   roles:
     - role: simplificator.netdata_installation
+
+  vars:
+    netdata_server_certificate: certificate
+    netdata_server_certificate_key: key
