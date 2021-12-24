@@ -5,6 +5,22 @@
     - "{{ ansible_os_family | lower }}{{ ansible_distribution_version|int }}.yml"
     - main.yml
 
+- name: Install Python apt bindings
+  apt:
+    pkg: "python3-apt"
+    state: present
+    update_cache: yes
+    cache_valid_time: 3600
+
+- name: "Check installed packages"
+  package_facts:
+    manager: "auto"
+
+- name: Check if installed netdata version differs
+  set_fact:
+    is_different_version: "{{ true if ansible_facts.packages['netdata'] is not defined else ansible_facts.packages['netdata'][0].version != netdata_version }}"
+  changed_when: false
+
 - include: libuv1_debian_8.yml
   when: ansible_os_family == "Debian" and ansible_distribution_version|int == 8
 
@@ -17,6 +33,7 @@
       - apt-transport-https
     state: present
     update_cache: true
+    cache_valid_time: 3600
   become: yes
 
 - name: Install GPG Key from Netdata
@@ -43,12 +60,14 @@
   dpkg_selections:
     name: netdata
     selection: install
+  when: is_different_version
 
 - name: Install netdata
   apt:
     name: "netdata={{ netdata_version }}"
     update_cache: true
   become: yes
+  when: is_different_version
   notify:
     - Restart Netdata
 
@@ -56,6 +75,7 @@
   dpkg_selections:
     name: netdata
     selection: hold
+  when: is_different_version
 
 - name: Copy SSL certificate to netdata SSL folder
   template:
@@ -81,15 +101,11 @@
     - Restart Netdata
   become: yes
 
-- name: "Check installed packages (for Docker)"
-  package_facts:
-    manager: "auto"
-
 - name: Add Netdata user to Docker group
   user:
     name: "netdata"
     groups: "docker"
     append: "yes"
-  when: ansible_facts.packages | select('search', 'docker') | list | count > 0
+  when: ansible_facts.packages.docker is defined
   notify:
     - Restart Netdata
