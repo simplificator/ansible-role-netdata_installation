@@ -1,10 +1,4 @@
 ---
-- name: Gather variables for each operating system
-  include_vars: "{{ item }}"
-  with_items: "{{ ansible_os_family | lower }}.yml"
-  tags:
-    - always
-
 - name: Gather netdata version for each operating system version
   include_vars: "{{ item }}"
   with_first_found:
@@ -14,11 +8,54 @@
 - include: libuv1_debian_8.yml
   when: ansible_os_family == "Debian" and ansible_distribution_version|int == 8
 
-- include: install_package_debian.yml
-  when: ansible_os_family == "Debian"
+- name: install pre-requisites
+  apt:
+    pkg:
+      - debian-archive-keyring
+      - curl
+      - gnupg
+      - apt-transport-https
+    state: present
+    update_cache: true
+  become: yes
 
-- include: install_package_centos.yml
-  when: ansible_os_family == "RedHat"
+- name: Install GPG Key from Netdata
+  apt_key:
+    url: https://packagecloud.io/netdata/netdata/gpgkey
+    state: present
+  become: yes
+
+- name: Add repository
+  apt_repository:
+    repo: deb https://packagecloud.io/netdata/netdata/{{ ansible_distribution | lower  }}/ {{ ansible_distribution_release }} main
+    state: present
+    filename: netdata
+  become: yes
+
+- name: Add source repository
+  apt_repository:
+    repo: deb-src https://packagecloud.io/netdata/netdata/{{ ansible_distribution | lower  }}/ {{ ansible_distribution_release }} main
+    state: present
+    filename: netdata
+  become: yes
+
+- name: Unhold Netdata on this version
+  dpkg_selections:
+    name: netdata
+    selection: install
+
+- name: Install netdata
+  apt:
+    name: "netdata={{ netdata_version }}"
+    update_cache: true
+  become: yes
+  notify:
+    - Restart Netdata
+
+- name: Hold Netdata on this version
+  dpkg_selections:
+    name: netdata
+    selection: hold
 
 - name: Copy SSL certificate to netdata SSL folder
   template:
