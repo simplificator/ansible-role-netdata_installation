@@ -21,9 +21,6 @@
     is_different_version: "{{ true if ansible_facts.packages['netdata'] is not defined else ansible_facts.packages['netdata'][0].version != netdata_version }}"
   changed_when: false
 
-- include: libuv1_debian_8.yml
-  when: ansible_os_family == "Debian" and ansible_distribution_version|int == 8
-
 - name: install pre-requisites
   apt:
     pkg:
