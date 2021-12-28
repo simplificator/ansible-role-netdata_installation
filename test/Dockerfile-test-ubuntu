@@ -1,7 +1,0 @@
-FROM simplificator/ansible:ubuntu1804-2-10
-
-ADD . /etc/ansible/roles/netdata-installation
-
-ADD test/ .
-
-RUN ansible-playbook --connection=local provision-test.yml --extra-vars "netdata_server_certificate='1234' netdata_server_certificate_key='56789' is_docker='yes'"
