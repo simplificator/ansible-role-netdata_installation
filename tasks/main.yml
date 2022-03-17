@@ -18,7 +18,7 @@
 
 - name: Check if installed netdata version differs
   set_fact:
-    is_different_version: "{{ true if ansible_facts.packages['netdata'] is not defined else ansible_facts.packages['netdata'][0].version != netdata_version }}"
+    is_different_version: "{{ true if ansible_facts.packages['netdata'] is not defined else ansible_facts.packages['netdata'][0].version != netdata_installation_version }}"
   changed_when: false
 
 - name: install pre-requisites
@@ -61,7 +61,7 @@
 
 - name: Install netdata
   apt:
-    name: "netdata={{ netdata_version }}"
+    name: "netdata={{ netdata_installation_version }}"
     update_cache: true
   become: yes
   when: is_different_version
@@ -81,7 +81,7 @@
     owner: "netdata"
     group: "netdata"
     mode: 0600
-  when: netdata_server_certificate is defined
+  when: netdata_installation_certificate is defined
   notify:
     - Restart Netdata
   become: yes
@@ -93,7 +93,7 @@
     owner: "netdata"
     group: "netdata"
     mode: 0600
-  when: netdata_server_certificate_key is defined
+  when: netdata_installation_certificate_key is defined
   notify:
     - Restart Netdata
   become: yes
