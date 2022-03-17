@@ -4,7 +4,7 @@
 
 An Ansible Role that installs a plain version of [Netdata](https://www.netdata.cloud/).
 
-Both our [Netdata client](https://github.com/simplificator/ansible-role-netdata_client) and [Netdata server](https://github.com/simplificator/ansible-role-netdata_server) role use this role as a common base for installing Netdata.
+Both our [Netdata node](https://github.com/simplificator/ansible-role-netdata_node) and [Netdata collector](https://github.com/simplificator/ansible-role-netdata_collector) role use this role as a common base for installing Netdata.
 
 ## Requirements
 
