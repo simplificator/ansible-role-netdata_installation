@@ -30,6 +30,15 @@ None.
     - { role: simplificator.netdata_installation }
 ```
 
+## Development
+
+### Variable naming
+
+To ensure that our Netdata roles remain compatible with each other, follow this variable naming convention:
+
+* Role-specific variables are prefixed with the role name (`netdata_installation_` in this case).
+* General variables that are used in multiple roles will be prefixed with just `netdata_`.
+
 ## License
 
 MIT / BSD
