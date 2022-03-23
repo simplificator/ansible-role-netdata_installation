@@ -4,7 +4,7 @@
 
 An Ansible Role that installs a plain version of [Netdata](https://www.netdata.cloud/).
 
-Both our [Netdata client](https://github.com/simplificator/ansible-role-netdata_client) and [Netdata server](https://github.com/simplificator/ansible-role-netdata_server) role use this role as a common base for installing Netdata.
+Both our [Netdata node](https://github.com/simplificator/ansible-role-netdata_node) and [Netdata collector](https://github.com/simplificator/ansible-role-netdata_collector) role use this role as a common base for installing Netdata.
 
 ## Requirements
 
@@ -12,11 +12,11 @@ N/A
 
 ## Role Variables
 
-Available variables are listed below, along with default values (see `defaults/main.yml`):
+The role doesn't require any variable to be set. The following are available for customization:
 
-* `netdata_version`: "1.32.1"
-
-If you plan to send metrics from a client to a server, the role allows to distribute a certificate and a key by setting the variables `netdata_server_certificate` and `netdata_server_certificate_key`.
+* `netdata_installation_version`: The version of Netdata that will be installed.
+* `netdata_installation_certificate`: If you plan to use our collector role, we require to provision a certificate to encrypt traffic between client and collector. Set the certificate with this variable.
+* `netdata_installation_certificate_key`: Key for the mentioned traffic certificate.
 
 ## Dependencies
 
@@ -29,6 +29,15 @@ None.
   roles:
     - { role: simplificator.netdata_installation }
 ```
+
+## Development
+
+### Variable naming
+
+To ensure that our Netdata roles remain compatible with each other, follow this variable naming convention:
+
+* Role-specific variables are prefixed with the role name (`netdata_installation_` in this case).
+* General variables that are used in multiple roles will be prefixed with just `netdata_`.
 
 ## License
 
