@@ -1,0 +1,12 @@
+---
+- name: Converge
+  hosts: all
+  become: true
+
+  roles:
+    - role: simplificator.netdata_installation
+
+  vars:
+    netdata_installation_certificate: certificate
+    netdata_installation_certificate_key: key
+    netdata_installation_use_nightly: yes

@@ -11,16 +11,12 @@ galaxy_info:
   platforms:
     - name: Debian
       versions:
-        - stretch
         - buster
         - bullseye
 
     - name: Ubuntu
       versions:
-        - xenial
-        - bionic
         - focal
-        - hirsute
-        - impish
+        - jammy
 
 allow_duplicates: true
