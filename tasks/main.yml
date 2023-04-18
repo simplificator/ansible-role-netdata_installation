@@ -35,20 +35,20 @@
 
 - name: Install GPG Key from Netdata
   apt_key:
-    url: https://packagecloud.io/netdata/netdata/gpgkey
+    url: "{{ netdata_installation_use_nightly | ternary('https://packagecloud.io/netdata/netdata-edge/gpgkey', 'https://packagecloud.io/netdata/netdata/gpgkey') }}"
     state: present
   become: yes
 
 - name: Add repository
   apt_repository:
-    repo: deb https://packagecloud.io/netdata/netdata/{{ ansible_distribution | lower  }}/ {{ ansible_distribution_release }} main
+    repo: deb https://packagecloud.io/netdata/{{ netdata_installation_use_nightly | ternary('netdata-edge', 'netdata') }}/{{ ansible_distribution | lower  }}/ {{ ansible_distribution_release }} main
     state: present
     filename: netdata
   become: yes
 
 - name: Add source repository
   apt_repository:
-    repo: deb-src https://packagecloud.io/netdata/netdata/{{ ansible_distribution | lower  }}/ {{ ansible_distribution_release }} main
+    repo: deb-src https://packagecloud.io/netdata/{{ netdata_installation_use_nightly | ternary('netdata-edge', 'netdata') }}/{{ ansible_distribution | lower  }}/ {{ ansible_distribution_release }} main
     state: present
     filename: netdata
   become: yes
@@ -61,6 +61,7 @@
 
 - name: Install netdata
   apt:
+    allow_downgrade: true
     name: "netdata={{ netdata_installation_version }}"
     update_cache: true
   become: yes

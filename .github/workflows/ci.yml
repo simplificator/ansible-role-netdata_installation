@@ -22,6 +22,9 @@ jobs:
           - ubuntu2204
           - debian10
           - debian11
+        scenario:
+          - nightly
+          - stable
 
     steps:
       - name: Check out the codebase.
@@ -38,7 +41,7 @@ jobs:
         run: pip3 install ansible molecule[docker] docker
 
       - name: Run Molecule tests.
-        run: molecule test
+        run: molecule test --scenario-name ${{ matrix.scenario }}
         env:
           PY_COLORS: "1"
           ANSIBLE_FORCE_COLOR: "1"
