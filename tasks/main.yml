@@ -99,6 +99,25 @@
     - Restart Netdata
   become: yes
 
+- name: Create cloud configuration directory
+  file:
+    path: /var/lib/netdata/cloud.d
+    state: "{{ netdata_installation_disable_cloud | ternary('directory', 'absent') }}"
+    owner: "netdata"
+    group: "netdata"
+    mode: "0770"
+
+- name: Copy cloud.conf
+  copy:
+    src: cloud.d/cloud.conf
+    dest: /var/lib/netdata/cloud.d/cloud.conf
+    owner: "netdata"
+    group: "netdata"
+    mode: "0770"
+  notify:
+    - "Restart Netdata"
+  when: netdata_installation_disable_cloud
+
 - name: Add Netdata user to Docker group
   user:
     name: "netdata"
