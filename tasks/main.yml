@@ -123,6 +123,6 @@
     name: "netdata"
     groups: "docker"
     append: "yes"
-  when: ansible_facts.packages['docker-ce'] is defined or ansible_facts.packages['docker-ee'] is defined
+  when: netdata_installation_monitor_docker and (ansible_facts.packages['docker-ce'] is defined or ansible_facts.packages['docker-ee'] is defined)
   notify:
     - Restart Netdata
