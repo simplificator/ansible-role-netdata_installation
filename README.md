@@ -18,6 +18,7 @@ The role doesn't require any variable to be set. The following are available for
 * `netdata_installation_certificate`: If you plan to use our collector role, we require to provision a certificate to encrypt traffic between client and collector. Set the certificate with this variable.
 * `netdata_installation_certificate_key`: Key for the mentioned traffic certificate.
 * `netdata_installation_disable_cloud`: Set it to `yes` if your Netdata installation should not make a connection to Netdata cloud.
+* `netdata_installation_monitor_docker`: If set to `yes`, Netdata will be added to the Docker group (if installed) to monitor containers. Disabled per default.
 
 ## Dependencies
 
