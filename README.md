@@ -17,6 +17,7 @@ The role doesn't require any variable to be set. The following are available for
 * `netdata_installation_version`: The version of Netdata that will be installed.
 * `netdata_installation_certificate`: If you plan to use our collector role, we require to provision a certificate to encrypt traffic between client and collector. Set the certificate with this variable.
 * `netdata_installation_certificate_key`: Key for the mentioned traffic certificate.
+* `netdata_installation_disable_cloud`: Set it to `yes` if your Netdata installation should not make a connection to Netdata cloud.
 
 ## Dependencies
 

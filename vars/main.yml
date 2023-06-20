@@ -1,2 +1,2 @@
 ---
-netdata_installation_version: "{{ netdata_installation_use_nightly | ternary('1.40.0-10-nightly', '1.40.0') }}"
+netdata_installation_version: "{{ netdata_installation_use_nightly | ternary('1.40.0-16-nightly', '1.40.0') }}"

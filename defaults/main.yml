@@ -1,1 +1,2 @@
+netdata_installation_disable_cloud: no
 netdata_installation_use_nightly: no

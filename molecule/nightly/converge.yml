@@ -9,4 +9,5 @@
   vars:
     netdata_installation_certificate: certificate
     netdata_installation_certificate_key: key
+    netdata_installation_disable_cloud: yes
     netdata_installation_use_nightly: yes
