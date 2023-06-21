@@ -39,19 +39,13 @@
     state: present
   become: yes
 
-- name: Add repository
-  apt_repository:
-    repo: deb https://packagecloud.io/netdata/{{ netdata_installation_use_nightly | ternary('netdata-edge', 'netdata') }}/{{ ansible_distribution | lower  }}/ {{ ansible_distribution_release }} main
-    state: present
-    filename: netdata
-  become: yes
-
-- name: Add source repository
-  apt_repository:
-    repo: deb-src https://packagecloud.io/netdata/{{ netdata_installation_use_nightly | ternary('netdata-edge', 'netdata') }}/{{ ansible_distribution | lower  }}/ {{ ansible_distribution_release }} main
-    state: present
-    filename: netdata
-  become: yes
+- name: Add Netdata repository
+  template:
+    src: "netdata.list.j2"
+    dest: "/etc/apt/sources.list.d/netdata.list"
+    owner: "root"
+    group: "root"
+    mode: 644
 
 - name: Unhold Netdata on this version
   dpkg_selections:
