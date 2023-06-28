@@ -1,2 +1,14 @@
 ---
 netdata_installation_version: "{{ netdata_installation_use_nightly | ternary('1.40.0-45-nightly', '1.40.0') }}"
+netdata_package_list:
+  - netdata={{ netdata_installation_version }}
+  - netdata-ebpf-code-legacy={{ netdata_installation_version }}
+  - netdata-plugin-apps={{ netdata_installation_version }}
+  - netdata-plugin-chartsd={{ netdata_installation_version }}
+  - netdata-plugin-debugfs={{ netdata_installation_version }}
+  - netdata-plugin-ebpf={{ netdata_installation_version }}
+  - netdata-plugin-go={{ netdata_installation_version }}
+  - netdata-plugin-nfacct={{ netdata_installation_version }}
+  - netdata-plugin-perf={{ netdata_installation_version }}
+  - netdata-plugin-pythond={{ netdata_installation_version }}
+  - netdata-plugin-slabinfo={{ netdata_installation_version }}
