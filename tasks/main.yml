@@ -56,7 +56,7 @@
 - name: Install netdata
   apt:
     allow_downgrade: true
-    name: "netdata={{ netdata_installation_version }}"
+    name: "{{ netdata_package_list | join(', ') }}"
     update_cache: true
   become: yes
   when: is_different_version
