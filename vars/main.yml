@@ -1,5 +1,5 @@
 ---
-netdata_installation_version: "{{ netdata_installation_use_nightly | ternary('1.40.0-45-nightly', '1.40.0') }}"
+netdata_installation_version: "{{ netdata_installation_use_nightly | ternary('1.41.0-318-nightly', '1.41.0') }}"
 netdata_package_list:
   - netdata={{ netdata_installation_version }}
   - netdata-ebpf-code-legacy={{ netdata_installation_version }}
