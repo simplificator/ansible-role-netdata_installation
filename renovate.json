@@ -1,0 +1,73 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "assignees": [
+    "andyundso"
+  ],
+  "labels": [
+    "dependencies"
+  ],
+  "customDatasources": {
+    "netdata-nightly": {
+      "defaultRegistryUrlTemplate": "https://raw.githubusercontent.com/netdata/netdata/master/packaging/version",
+      "format": "plain"
+    }
+  },
+  "regexManagers": [
+    {
+      "fileMatch": [
+        "main.yml$"
+      ],
+      "matchStrings": [
+        "netdata_nightly_version: \"(?<currentValue>[\\d\\.\\-]+)-nightly\""
+      ],
+      "datasourceTemplate": "custom.netdata-nightly",
+      "depNameTemplate": "netdata-nightly"
+    },
+    {
+      "fileMatch": [
+        "main.yml$"
+      ],
+      "matchStrings": [
+        "netdata_stable_version: \"(?<currentValue>[\\d\\.]+)\""
+      ],
+      "datasourceTemplate": "github-releases",
+      "depNameTemplate": "netdata/netdata"
+    }
+  ],
+  "packageRules": [
+    {
+      "groupName": "all non-major dependencies",
+      "groupSlug": "all-minor-patch",
+      "matchPackagePatterns": [
+        "*"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ]
+    },
+    {
+      "matchPackageNames": [
+        "netdata-nightly"
+      ],
+      "extractVersion": "v(?<version>.*)-nightly$",
+      "ignoreUnstable": false
+    },
+    {
+      "matchPackageNames": [
+        "netdata/netdata"
+      ],
+      "extractVersion": "v(?<version>.*)$"
+    }
+  ],
+  "schedule": [
+    "before 8am on monday"
+  ],
+  "vulnerabilityAlerts": {
+    "labels": [
+      "security"
+    ],
+    "schedule": "at any time"
+  },
+  "dependencyDashboard": true
+}
