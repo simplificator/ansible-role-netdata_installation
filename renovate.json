@@ -22,6 +22,16 @@
       ],
       "datasourceTemplate": "custom.netdata-nightly",
       "depNameTemplate": "netdata-nightly"
+    },
+    {
+      "fileMatch": [
+        "main.yml$"
+      ],
+      "matchStrings": [
+        "netdata_stable_version: \"(?<currentValue>[\\d\\.]+)\""
+      ],
+      "datasourceTemplate": "github-releases",
+      "depNameTemplate": "netdata/netdata"
     }
   ],
   "packageRules": [
@@ -42,6 +52,12 @@
       ],
       "extractVersion": "v(?<version>.*)-nightly$",
       "ignoreUnstable": false
+    },
+    {
+      "matchPackageNames": [
+        "netdata/netdata"
+      ],
+      "extractVersion": "v(?<version>.*)$"
     }
   ],
   "schedule": [
