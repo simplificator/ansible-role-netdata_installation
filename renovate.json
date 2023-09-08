@@ -6,6 +6,24 @@
   "labels": [
     "dependencies"
   ],
+  "customDatasources": {
+    "netdata-nightly": {
+      "defaultRegistryUrlTemplate": "https://raw.githubusercontent.com/netdata/netdata/master/packaging/version",
+      "format": "plain"
+    }
+  },
+  "regexManagers": [
+    {
+      "fileMatch": [
+        "main.yml$"
+      ],
+      "matchStrings": [
+        "netdata_nightly_version: \"(?<currentValue>[\\d\\.\\-]+)-nightly\""
+      ],
+      "datasourceTemplate": "custom.netdata-nightly",
+      "depNameTemplate": "netdata-nightly"
+    }
+  ],
   "packageRules": [
     {
       "groupName": "all non-major dependencies",
@@ -17,6 +35,13 @@
         "minor",
         "patch"
       ]
+    },
+    {
+      "matchPackageNames": [
+        "netdata-nightly"
+      ],
+      "extractVersion": "v(?<version>.*)-nightly$",
+      "ignoreUnstable": false
     }
   ],
   "schedule": [
