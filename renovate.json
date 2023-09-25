@@ -21,7 +21,8 @@
         "netdata_nightly_version: \"(?<currentValue>[\\d\\.\\-]+)-nightly\""
       ],
       "datasourceTemplate": "custom.netdata-nightly",
-      "depNameTemplate": "netdata-nightly"
+      "depNameTemplate": "netdata-nightly",
+      "versioningTemplate": "loose"
     },
     {
       "fileMatch": [
