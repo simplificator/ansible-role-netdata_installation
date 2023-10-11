@@ -1,10 +1,10 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "github>simplificator/renovate-preset"
+  ],
   "assignees": [
     "andyundso"
-  ],
-  "labels": [
-    "dependencies"
   ],
   "customDatasources": {
     "netdata-nightly": {
@@ -37,17 +37,6 @@
   ],
   "packageRules": [
     {
-      "groupName": "all non-major dependencies",
-      "groupSlug": "all-minor-patch",
-      "matchPackagePatterns": [
-        "*"
-      ],
-      "matchUpdateTypes": [
-        "minor",
-        "patch"
-      ]
-    },
-    {
       "matchPackageNames": [
         "netdata-nightly"
       ],
@@ -60,15 +49,5 @@
       ],
       "extractVersion": "v(?<version>.*)$"
     }
-  ],
-  "schedule": [
-    "before 8am on monday"
-  ],
-  "vulnerabilityAlerts": {
-    "labels": [
-      "security"
-    ],
-    "schedule": "at any time"
-  },
-  "dependencyDashboard": true
+  ]
 }
