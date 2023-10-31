@@ -1,6 +1,6 @@
 ---
 netdata_nightly_version: "1.43.0-73-nightly"
-netdata_stable_version: "1.43.1"
+netdata_stable_version: "1.43.2"
 netdata_installation_version: "{{ netdata_installation_use_nightly | ternary(netdata_nightly_version, netdata_stable_version) }}"
 netdata_package_list:
   - netdata={{ netdata_installation_version }}
