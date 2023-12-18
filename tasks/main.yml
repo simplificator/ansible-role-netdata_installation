@@ -61,7 +61,7 @@
   dpkg_selections:
     name: netdata
     selection: install
-  when: is_different_version
+  when: ansible_facts.packages['netdata'] is defined and is_different_version
 
 - name: Install netdata
   apt:
@@ -77,7 +77,6 @@
   dpkg_selections:
     name: netdata
     selection: hold
-  when: is_different_version
 
 - name: Copy SSL certificate to netdata SSL folder
   template:
