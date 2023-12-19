@@ -21,6 +21,7 @@ jobs:
           - ubuntu2204
           - debian10
           - debian11
+          - debian12
         scenario:
           - nightly
           - stable

@@ -1,2 +1,1 @@
-deb https://packagecloud.io/netdata/{{ netdata_installation_use_nightly | ternary('netdata-edge', 'netdata') }}/{{ ansible_distribution | lower  }}/ {{ ansible_distribution_release }} main
-deb-src https://packagecloud.io/netdata/{{ netdata_installation_use_nightly | ternary('netdata-edge', 'netdata') }}/{{ ansible_distribution | lower  }}/ {{ ansible_distribution_release }} main
+deb https://repo.netdata.cloud/repos/{{ netdata_installation_use_nightly | ternary('edge', 'stable') }}/{{ ansible_distribution | lower }}/ {{ ansible_distribution_release | lower }}/
