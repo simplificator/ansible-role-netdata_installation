@@ -25,6 +25,7 @@ jobs:
         scenario:
           - nightly
           - stable
+          - custom_version
 
     steps:
       - name: Check out the codebase.
