@@ -2,8 +2,19 @@
 - name: Gather netdata version for each operating system version
   include_vars: "{{ item }}"
   with_first_found:
-    - "{{ ansible_distribution | lower }}_{{ ansible_distribution_version|int }}.yml"
-    - main.yml
+    - "{{ ansible_distribution | lower }}_{{ ansible_distribution_version|int }}_version.yml"
+    - version.yml
+
+- name: Set netdata_installation_version
+  set_fact:
+    netdata_installation_version: "{{ netdata_installation_use_nightly | ternary(netdata_nightly_version, netdata_stable_version) }}"
+  when: netdata_installation_version is undefined
+
+- name: Gather netdata packages for each operating system version
+  include_vars: "{{ item }}"
+  with_first_found:
+    - "{{ ansible_distribution | lower }}_{{ ansible_distribution_version|int }}_packages.yml"
+    - packages.yml
 
 - name: Install Python apt bindings
   apt:
