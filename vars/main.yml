@@ -4,7 +4,6 @@ netdata_stable_version: "1.46.1"
 netdata_installation_version: "{{ netdata_installation_use_nightly | ternary(netdata_nightly_version, netdata_stable_version) }}"
 netdata_package_list:
   - netdata={{ netdata_installation_version }}
-  - "{{ netdata_installation_use_nightly | ternary(omit, 'netdata-ebpf-code-legacy=' + netdata_stable_version) }}"
   - netdata-plugin-apps={{ netdata_installation_version }}
   - netdata-plugin-chartsd={{ netdata_installation_version }}
   - netdata-plugin-debugfs={{ netdata_installation_version }}
