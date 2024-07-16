@@ -25,6 +25,9 @@ jobs:
         scenario:
           - nightly
           - stable
+        exclude:
+          - distro: debian10
+            scenario: nightly
 
     steps:
       - name: Check out the codebase.
