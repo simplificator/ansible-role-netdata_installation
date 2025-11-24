@@ -19,15 +19,11 @@ jobs:
         distro:
           - ubuntu2004
           - ubuntu2204
-          - debian10
           - debian11
           - debian12
         scenario:
           - nightly
           - stable
-        exclude:
-          - distro: debian10
-            scenario: nightly
 
     steps:
       - name: Check out the codebase.
