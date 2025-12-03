@@ -47,11 +47,12 @@
     mode: "0755"
   become: yes
 
-- name: Download Netdata GPG key
-  get_url:
-    url: "https://repo.netdata.cloud/netdatabot.gpg.key"
-    dest: /usr/share/keyrings/netdata-archive-keyring.gpg
-    mode: "0644"
+- name: Download and convert Netdata GPG key
+  shell: |
+    curl -fsSL https://repo.netdata.cloud/netdatabot.gpg.key | gpg --dearmor -o /usr/share/keyrings/netdata-archive-keyring.gpg
+    chmod 644 /usr/share/keyrings/netdata-archive-keyring.gpg
+  args:
+    creates: /usr/share/keyrings/netdata-archive-keyring.gpg
   become: yes
 
 - name: Add Netdata repository
