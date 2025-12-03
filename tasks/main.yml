@@ -18,7 +18,7 @@
 
 - name: Check if installed netdata version differs
   set_fact:
-    is_different_version: "{{ true if ansible_facts.packages['netdata'] is not defined else ansible_facts.packages['netdata'][0].version != netdata_installation_version }}"
+    is_different_version: "{{ true if ansible_facts.packages['netdata'] is not defined else (netdata_installation_use_nightly or ansible_facts.packages['netdata'][0].version != netdata_installation_version) }}"
   changed_when: false
 
 - name: install pre-requisites
@@ -82,6 +82,7 @@
   dpkg_selections:
     name: netdata
     selection: hold
+  when: not netdata_installation_use_nightly
 
 - name: Copy SSL certificate to netdata SSL folder
   template:
