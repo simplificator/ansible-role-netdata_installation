@@ -23,7 +23,7 @@ jobs:
           - debian12
           - debian13
         scenario:
-          # - nightly
+          - nightly
           - stable
 
     steps:
