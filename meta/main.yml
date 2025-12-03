@@ -15,9 +15,4 @@ galaxy_info:
         - bookworm
         - bullseye
 
-    - name: Ubuntu
-      versions:
-        - jammy
-        - noble
-
 allow_duplicates: true
