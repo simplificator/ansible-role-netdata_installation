@@ -36,7 +36,7 @@ jobs:
           python-version: "3.12"
 
       - name: Install test dependencies.
-        run: pip3 install ansible molecule molecule-plugins[docker] "requests<2.32.2"
+        run: pip3 install "ansible<2.20" molecule molecule-plugins[docker] "requests<2.32.2"
 
       - name: Run Molecule tests.
         run: molecule test --scenario-name ${{ matrix.scenario }}
@@ -44,4 +44,3 @@ jobs:
           PY_COLORS: "1"
           ANSIBLE_FORCE_COLOR: "1"
           MOLECULE_DISTRO: ${{ matrix.distro }}
-          ALLOW_BROKEN_CONDITIONALS: "True"
