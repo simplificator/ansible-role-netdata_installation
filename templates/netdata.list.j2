@@ -1,1 +1,1 @@
-deb https://repo.netdata.cloud/repos/{{ netdata_installation_use_nightly | ternary('edge', 'stable') }}/{{ ansible_distribution | lower }}/ {{ ansible_distribution_release | lower }}/
+deb [signed-by=/usr/share/keyrings/netdata-archive-keyring.asc] https://repo.netdata.cloud/repos/{{ netdata_installation_use_nightly | ternary('edge', 'stable') }}/{{ ansible_distribution | lower }}/ {{ ansible_distribution_release | lower }}/

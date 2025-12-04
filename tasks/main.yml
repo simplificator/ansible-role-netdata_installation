@@ -18,7 +18,7 @@
 
 - name: Check if installed netdata version differs
   set_fact:
-    is_different_version: "{{ true if ansible_facts.packages['netdata'] is not defined else ansible_facts.packages['netdata'][0].version != netdata_installation_version }}"
+    is_different_version: "{{ true if ansible_facts.packages['netdata'] is not defined else (netdata_installation_use_nightly or ansible_facts.packages['netdata'][0].version != netdata_installation_version) }}"
   changed_when: false
 
 - name: install pre-requisites
@@ -31,22 +31,27 @@
     cache_valid_time: 3600
   become: yes
 
-- name: Remove PackageCloud GPG key
-  apt_key:
-    url: "https://packagecloud.io/netdata/netdata/gpgkey"
+- name: Remove old PackageCloud GPG keys (if present)
+  file:
+    path: "{{ item }}"
     state: absent
+  loop:
+    - /etc/apt/trusted.gpg.d/netdata.gpg
+    - /etc/apt/trusted.gpg.d/netdata-edge.gpg
   become: yes
 
-- name: Remove PackageCloud Nigthly GPG key
-  apt_key:
-    url: "https://packagecloud.io/netdata/netdata-edge/gpgkey"
-    state: absent
+- name: Create keyrings directory
+  file:
+    path: /usr/share/keyrings
+    state: directory
+    mode: "0755"
   become: yes
 
-- name: Install GPG Key from Netdata
-  apt_key:
+- name: Download Netdata GPG key in ASCII format
+  get_url:
     url: "https://repo.netdata.cloud/netdatabot.gpg.key"
-    state: present
+    dest: /usr/share/keyrings/netdata-archive-keyring.asc
+    mode: "0644"
   become: yes
 
 - name: Add Netdata repository
@@ -77,6 +82,7 @@
   dpkg_selections:
     name: netdata
     selection: hold
+  when: not netdata_installation_use_nightly
 
 - name: Copy SSL certificate to netdata SSL folder
   template:

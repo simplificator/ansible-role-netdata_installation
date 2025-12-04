@@ -17,31 +17,26 @@ jobs:
     strategy:
       matrix:
         distro:
-          - ubuntu2004
-          - ubuntu2204
-          - debian10
           - debian11
           - debian12
+          - debian13
         scenario:
           - nightly
           - stable
-        exclude:
-          - distro: debian10
-            scenario: nightly
 
     steps:
       - name: Check out the codebase.
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           path: "simplificator.netdata_installation"
 
       - name: Set up Python 3.
         uses: actions/setup-python@v5
         with:
-          python-version: "3.x"
+          python-version: "3.12"
 
       - name: Install test dependencies.
-        run: pip3 install ansible molecule molecule-docker "requests<2.32.2"
+        run: pip3 install "ansible-core>=2.17,<2.18" molecule molecule-plugins[docker] "requests<2.32.2"
 
       - name: Run Molecule tests.
         run: molecule test --scenario-name ${{ matrix.scenario }}

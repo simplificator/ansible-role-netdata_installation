@@ -11,12 +11,8 @@ galaxy_info:
   platforms:
     - name: Debian
       versions:
-        - buster
+        - trixie
+        - bookworm
         - bullseye
-
-    - name: Ubuntu
-      versions:
-        - focal
-        - jammy
 
 allow_duplicates: true
